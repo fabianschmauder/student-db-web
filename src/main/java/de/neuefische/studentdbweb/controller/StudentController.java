@@ -29,7 +29,6 @@ public class StudentController {
     return service.getStudents();
   }
 
-
   @PutMapping
   public Student addStudent(@RequestBody Student student) {
     service.addStudent(student);
