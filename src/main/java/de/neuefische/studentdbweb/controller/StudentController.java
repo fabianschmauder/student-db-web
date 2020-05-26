@@ -2,6 +2,7 @@ package de.neuefische.studentdbweb.controller;
 
 import de.neuefische.studentdbweb.model.Student;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -76,5 +77,12 @@ public class StudentController {
       }
     }
     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
+  }
+
+  @DeleteMapping("{id}")
+  public Student deleteStudent(@PathVariable String id){
+    Student studentToDelete = getStudentById(id);
+    students.remove(studentToDelete);
+    return studentToDelete;
   }
 }
