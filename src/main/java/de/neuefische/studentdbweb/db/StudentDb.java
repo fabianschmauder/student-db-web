@@ -20,4 +20,8 @@ public class StudentDb {
   public void add(Student student) {
     this.students.add(student);
   }
+
+  public void clearDb(){
+    students.clear();
+  }
 }

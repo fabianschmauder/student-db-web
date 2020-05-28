@@ -1,6 +1,8 @@
 package de.neuefische.studentdbweb.controller;
 
+import de.neuefische.studentdbweb.db.StudentDb;
 import de.neuefische.studentdbweb.model.Student;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,14 @@ class StudentControllerTest {
   // https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/client/TestRestTemplate.html
   private TestRestTemplate restTemplate;
 
+  @Autowired
+  private StudentDb studentDb;
+
+  @BeforeEach
+  public void resetDatabase() {
+    studentDb.clearDb();
+  }
+
   @Test
   public void getStudentsShouldReturnEmptyStudentsArray() {
     //GIVEN
@@ -38,13 +48,24 @@ class StudentControllerTest {
   }
 
   @Test
-  public void getStudentsShouldReturnAllStudents2() {
-    //Post
+  public void putStudentShouldAddStudentToDatabase() {
+    //GIVEN
     HttpEntity<Student> requestEntity = new HttpEntity<>(new Student("1", "Frank", 22, "uni1"));
+
+    //WHEN
     ResponseEntity<Student> postResponse = restTemplate.exchange("http://localhost:" + port + "/students", HttpMethod.PUT, requestEntity, Student.class);
 
+    //THEN
     assertEquals(HttpStatus.OK, postResponse.getStatusCode());
     assertEquals(new Student("1", "Frank", 22, "uni1"), postResponse.getBody());
+    assertTrue(studentDb.getStudents().contains(new Student("1", "Frank", 22, "uni1")));
+  }
+
+  @Test
+  public void getStudentsShouldReturnAllStudents() {
+    //GIVEN
+    studentDb.add(new Student("1", "Frank", 22, "uni1"));
+    studentDb.add(new Student("2", "Caro", 22, "uni2"));
 
 
     //WHEN
@@ -54,8 +75,9 @@ class StudentControllerTest {
 
     //THEN
     assertEquals(HttpStatus.OK, statusCode);
-    assertEquals(1, students.length);
+    assertEquals(2, students.length);
     assertEquals(new Student("1", "Frank", 22, "uni1"), students[0]);
+    assertEquals(new Student("2", "Caro", 22, "uni2"), students[1]);
   }
 
 }
