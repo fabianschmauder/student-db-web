@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -36,12 +38,10 @@ class StudentControllerTest {
   }
 
   @Test
-  public void getStudentsShouldReturnAllStudents() {
+  public void getStudentsShouldReturnAllStudents2() {
     //Post
-    ResponseEntity<Student> postResponse = restTemplate.postForEntity(
-        "http://localhost:" + port + "/students",
-        new Student("1", "Frank", 22, "uni1"),
-        Student.class);
+    HttpEntity<Student> requestEntity = new HttpEntity<>(new Student("1", "Frank", 22, "uni1"));
+    ResponseEntity<Student> postResponse = restTemplate.exchange("http://localhost:" + port + "/students", HttpMethod.PUT, requestEntity, Student.class);
 
     assertEquals(HttpStatus.OK, postResponse.getStatusCode());
     assertEquals(new Student("1", "Frank", 22, "uni1"), postResponse.getBody());
