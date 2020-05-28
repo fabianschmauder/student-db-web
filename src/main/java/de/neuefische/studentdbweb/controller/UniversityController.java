@@ -1,5 +1,6 @@
 package de.neuefische.studentdbweb.controller;
 
+import de.neuefische.studentdbweb.model.AlarmStatus;
 import de.neuefische.studentdbweb.model.Student;
 import de.neuefische.studentdbweb.service.StudentService;
 import de.neuefische.studentdbweb.service.UniversityService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,4 +37,13 @@ public class UniversityController {
   }
 
 
+  @GetMapping("search")
+  public List<Student> searchStudents(){
+    return new ArrayList<>();
+  }
+
+  @GetMapping("status")
+  public AlarmStatus getAlarmStatus(){
+    return  universityService.getAlarmStatus();
+  }
 }

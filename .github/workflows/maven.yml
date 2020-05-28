@@ -3,11 +3,7 @@
 
 name: student db build
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: push
 
 jobs:
   build:
@@ -16,9 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
+    - name: Set up JDK 14
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - name: print fancy stuff
+      run: echo "Hey wie gehts"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
