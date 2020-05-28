@@ -33,4 +33,8 @@ public class UniversityService {
         return 0;
     }
   }
+
+  public AlarmStatus getAlarmStatus() {
+    return alarmStatus;
+  }
 }

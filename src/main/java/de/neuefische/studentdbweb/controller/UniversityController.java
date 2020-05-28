@@ -1,5 +1,6 @@
 package de.neuefische.studentdbweb.controller;
 
+import de.neuefische.studentdbweb.model.AlarmStatus;
 import de.neuefische.studentdbweb.model.Student;
 import de.neuefische.studentdbweb.service.StudentService;
 import de.neuefische.studentdbweb.service.UniversityService;
@@ -39,5 +40,10 @@ public class UniversityController {
   @GetMapping("search")
   public List<Student> searchStudents(){
     return new ArrayList<>();
+  }
+
+  @GetMapping("status")
+  public AlarmStatus getAlarmStatus(){
+    return  universityService.getAlarmStatus();
   }
 }
