@@ -16,5 +16,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - name: print fancy stuff
+      run: echo "Hey wie gehts"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
