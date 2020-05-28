@@ -59,7 +59,6 @@ class StudentControllerTest {
     assertEquals(HttpStatus.OK, postResponse.getStatusCode());
     assertEquals(new Student("1", "Frank", 22, "uni1"), postResponse.getBody());
     assertTrue(studentDb.getStudents().contains(new Student("1", "Frank", 22, "uni1")));
-    fail();
   }
 
   @Test
