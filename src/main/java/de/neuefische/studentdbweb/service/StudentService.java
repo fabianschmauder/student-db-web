@@ -22,8 +22,8 @@ public class StudentService {
     studentDb.add(student);
   }
 
-  public List<Student> getStudents() {
-    return studentDb.getStudents();
+  public List<Student> getStudents(String query) {
+    return studentDb.getStudents(query);
   }
 
   public List<Student> findStudentsByUniverstiy(String universityId) {

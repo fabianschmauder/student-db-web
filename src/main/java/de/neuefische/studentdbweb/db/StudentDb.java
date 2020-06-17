@@ -12,8 +12,23 @@ public class StudentDb {
   private final List<Student> students = new ArrayList<>();
 
 
-  public List<Student> getStudents(){
-    return students;
+  public List<Student> getStudents(String query){
+    if(query == null || query.isBlank()){
+      return students;
+    }
+
+    List<Student> filteredStudents = new ArrayList<>();
+
+    for (Student student : students) {
+      if(student.getName() != null && student.getName().toLowerCase().contains(query.toLowerCase())){
+        filteredStudents.add(student);
+      }
+    }
+    return filteredStudents;
+  }
+
+ public List<Student> getStudents(){
+    return getStudents(null);
   }
 
 

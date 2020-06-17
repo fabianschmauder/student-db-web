@@ -80,4 +80,24 @@ class StudentControllerTest {
     assertEquals(new Student("2", "Caro", 22, "uni2"), students[1]);
   }
 
+  @Test
+  public void getStudentsShouldReturnFilteredStudents() {
+    //GIVEN
+    studentDb.add(new Student("1", "Frank", 22, "uni1"));
+    studentDb.add(new Student("2", "Caro", 22, "uni2"));
+    studentDb.add(new Student("3", "Franzi", 23, "uni3"));
+
+
+    //WHEN
+    ResponseEntity<Student[]> response = restTemplate.getForEntity("http://localhost:" + port + "/students?query=fr", Student[].class);
+    HttpStatus statusCode = response.getStatusCode();
+    Student[] students = response.getBody();
+
+    //THEN
+    assertEquals(HttpStatus.OK, statusCode);
+    assertEquals(2, students.length);
+    assertEquals(new Student("1", "Frank", 22, "uni1"), students[0]);
+    assertEquals(new Student("3", "Franzi", 23, "uni3"), students[1]);
+  }
+
 }
